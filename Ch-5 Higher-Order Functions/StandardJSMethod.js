@@ -116,19 +116,19 @@ const reduce = (array, combine, start) => {
   return current;
 }
 
-console.log(reduce([1,2,3,4,5], (a, b) => {
+reduce([1,2,3,4,5], (a, b) => {
   return a + b;
-}));
+});
 
 // Like forEach filter and map, reduce is also standard method of array.
 
-console.log([100,2,30,4,15,6].reduce((min, cur) => {
+[100,2,30,4,15,6].reduce((min, cur) => {
   if (cur < min) {
     return cur;
   } else {
     return min;
   }
-}));
+});
 // 2
 
 // Same as above without reduce.
@@ -138,4 +138,45 @@ let min = [100,2,30,4,15,6][0];
     min = cur;
   }
 });
-console.log(min);
+// console.log(min);
+
+
+
+//  let’s write code that finds the average age for men and for women in the data set.
+const findGender = (array, gender) => {
+  return array.filter((element) => {
+    if (element.sex === gender) {
+      return element;
+    }
+  });
+}
+
+const age = (array) => {
+  return array.map((element) => {
+    return element.died - element.born;
+  });
+}
+
+const average = (array) => {
+  let total = array.reduce((a, b) => {
+    return a + b;
+  });
+  return Math.round(total / array.length);
+}
+
+// Long Way
+const female = findGender(ancestry, 'f');
+const male = findGender(ancestry, 'm');
+
+const femaleAge = age(female);
+const maleAge = age(male);
+
+const femaleAgeAverage = average(femaleAge);
+const maleAgeAverage = average(maleAge);
+
+console.log(femaleAgeAverage);
+console.log(maleAgeAverage);
+
+// Short Way
+console.log(average(age(findGender(ancestry, 'f'))));
+console.log(average(age(findGender(ancestry, 'm'))));
